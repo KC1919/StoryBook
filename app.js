@@ -1,11 +1,13 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const connectDB = require("./config/db");
 const morgan = require("morgan");
 const partials = require('express-partials');
 var expressLayouts = require('express-ejs-layouts');
 const passport = require("passport");
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
+const connectDB = require("./config/db");
 //Express instance
 const app = express();
 
@@ -20,6 +22,7 @@ require('./config/passport')(passport);
 app.use(express.static("public"));
 
 // app.use(partials());
+// app.set('partials','./views/partials');
 
 //EJS template engine config
 app.set('view engine', 'ejs')
@@ -32,7 +35,7 @@ app.set('layout', './layouts/main')
 //Data format
 app.use(express.json());
 app.use(express.urlencoded({
-    extended: true
+    extended: false
 }));
 
 //Logging
@@ -45,6 +48,9 @@ app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl:process.env.MONGO_URI
+    })
 }))
 
 //Passport middlewares
@@ -57,6 +63,7 @@ connectDB();
 //Router
 app.use("/", require("./routes/index"));
 app.use("/auth", require("./routes/auth"));
+app.use("/stories", require("./routes/stories"));
 
 
 const PORT = process.env.PORT || 5000;
