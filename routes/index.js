@@ -5,6 +5,7 @@ const {
 } = require('../middlewares/auth');
 const router = express.Router();
 const Story = require('../models/Story');
+const {formatDate}=require("../helpers/ejs");
 
 router.get("/", ensureGuest, (req, res) => {
     res.render("login", {
@@ -22,7 +23,8 @@ router.get("/dashboard", ensureAuth, async (req, res) => {
         console.log(stories);
         res.render("dashboard", {
             "name": req.user.firstName,
-            "stories":stories
+            "stories":stories,
+            'formatDate':formatDate
         });
     } catch (error) {
         if (error) {

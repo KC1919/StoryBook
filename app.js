@@ -31,7 +31,6 @@ app.use(expressLayouts)
 app.set('layout', './layouts/main')
 
 
-
 //Data format
 app.use(express.json());
 app.use(express.urlencoded({

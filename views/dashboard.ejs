@@ -27,8 +27,9 @@
         <tbody>
             <%stories.forEach((story)=>{%>
             <tr>
-                <td><a href=`/stories/${<%=story._id%>`> </a> <%=story.title%> </td> <td>
-                        <%=story.createdAt%>
+                <td><a href=`/stories/<%=story._id%>`><%=story.title%> </a>  </td> 
+                    <td>
+                        <%=formatDate(story.createdAt,'MMMM Do YYYY, h:mm:ss a')%>
                 </td>
                 <td><span class="dash-status">
                         <%=story.status%>

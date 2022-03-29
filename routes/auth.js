@@ -20,7 +20,7 @@ router.get(
         failureRedirect: "/",
     }),
     (req, res) => {
-        res.render("/dashboard");
+        res.redirect("/dashboard");
     }
 );
 

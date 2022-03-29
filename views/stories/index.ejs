@@ -1,0 +1,32 @@
+<h1 class="">Stories</h1>
+<div class="row">
+    <%if(stories.length==0){%>
+        <p>No stories to display</p>
+        <%}else{%>
+            <%stories.forEach((story)=>{%>
+                <div class="s12 col m4">
+                    <div class="card">
+                        <div class="card-image">
+                            <!-- To do icon -->
+                        </div>
+                        <div class="card-content center-align">
+                            <h5>
+                                <%=story.title%>
+                            </h5>
+                            <p>
+                                <%=trim(stripTags(story.body),100)%>
+                            </p>
+                            <br>
+                            <div class="chip">
+                                <img src=<%=story.user.image%> alt="">
+                                <a href="/stories/user/<%=story.user._id%>"><%=story.user.displayName%></a>
+                            </div>
+                        </div>
+                        <div class="card-action center-align">
+                            <a href="/stories/<%=story._id%>">Read more</a>
+                        </div>
+                    </div>
+                </div>
+                <%})%>
+                    <%}%>
+</div>
